@@ -1,30 +1,55 @@
-
-exports.up = function(knex) {
+exports.up = function (knex) {
   return knex.schema
-  .createTable('up_vote' tbl=>{
-    tbl.increments()
-    tbl.primary(['user_id', 'post_id']);
-    tbl.boolean('up_voted').defaultTo(false)
-    tbl.integer('amount').defaultTo(0)
+    .createTable("up_vote", (tbl) => {
+      // tbl.increments();
+      tbl.primary(["user_id", "post_id"]);
+      tbl.boolean("up_voted").defaultTo(false);
+      tbl.integer("amount").defaultTo(0);
+      tbl
+        .integer("post_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("posts")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
 
-    tbl.integer('post_id').unsigned().notNullable().references('id')
-    .inTable('posts').onDelete('CASCADE').onUpdate('CASCADE')
-
-    tbl.integer('user_id').unsigned().notNullable().references('id')
-    .inTable('users').onDelete('CASCADE').onUpdate('CASCADE')
-  })
-}
-    .createTable('down_vote', tbl=>{
-        tbl.increments()
-    tbl.boolean('down_voted').defaultTo(false)
-    tbl.integer('amount').defaultTo(0)
-
-    tbl.integer('post_id').unsigned().notNullable().references('id')
-    .inTable('posts')
-    tbl.integer('user_id').unsigned().notNullable().references('id')
-    .inTable('users').onDelete('CASCADE').onUpdate('CASCADE')
+      tbl
+        .integer("user_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     })
+    .createTable("down_vote", (tbl) => {
+      // tbl.increments();
+      tbl.primary(["user_id", "post_id"]);
+      tbl.boolean("down_voted").defaultTo(false);
+      tbl.integer("amount").defaultTo(0);
 
-exports.down = function(knex) {
-  
+      tbl
+        .integer("post_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("posts")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      tbl
+        .integer("user_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    });
+};
+
+exports.down = function (knex) {
+  return knex.schema
+    .dropTableIfExists("up_vote")
+    .dropTableIfExists("down_vote");
 };
