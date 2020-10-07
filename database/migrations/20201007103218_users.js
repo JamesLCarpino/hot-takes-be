@@ -6,8 +6,6 @@ exports.up = function (knex) {
     tbl.varchar("password").notNullable();
     tbl.boolean("admin").defaultTo(0);
     tbl.timestamp("user_created").defaultTo(knex.fn.now());
-    tbl.vachar("post_id");
-    tbl.varchar("comment_id");
   });
 };
 
