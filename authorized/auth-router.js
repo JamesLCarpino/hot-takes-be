@@ -57,6 +57,7 @@ function generateToken(user) {
   const payload = {
     sub: user.id,
     username: user.username,
+    admin: user.admin,
   };
   const secret = process.env.JWT_SECRET || "drowssaPPassword";
 

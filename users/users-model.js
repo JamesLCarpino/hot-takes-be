@@ -12,7 +12,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users");
+  return db("users").select("username", "admin", "user_created");
 }
 
 function add(user) {

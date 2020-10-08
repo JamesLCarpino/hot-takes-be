@@ -7,11 +7,9 @@ router.use(restricted);
 
 router.get("/", (req, res) => {
   Users.find()
-    .then((users) => {
-      users = JSON.parse(users);
-      console.log(data);
 
-      if (users.admin === true) {
+    .then((users) => {
+      if (users) {
         res.status(201).json({ users });
       } else {
         res
