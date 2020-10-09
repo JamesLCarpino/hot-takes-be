@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Posts.findPostsById(req.params.id)
+  Posts.getPostsById(req.params.id)
     .then(([data]) => {
       if (data) {
         res.status(200).json(data);
@@ -30,19 +30,22 @@ router.get("/:id", (req, res) => {
     });
 });
 
-// router.get('/:id', (req,res)=>{
-//     Posts.findPostsById(req.params.id)
-//     .then(([data]) =>{
-//         if(data){
-//             res.status(200).json(data)
-
-//         }else{
-//             res.status(404).json({message: 'Post data not found!'})
-//         }
-//     }).catch(err => {
-//         res.status(500).json({message: "There was an error while saving to the database"})
+//keeping this here, currently this functionality exists in the user route
+// router.get("/userposts/:user_id", (req, res) => {
+//   Posts.getPostsByUserId(req.params.id)
+//     .then(([data]) => {
+//       if (data) {
+//         res.status(200).json(data);
+//       } else {
+//         res.status(404).json({ message: "Post by this user ID do not exist" });
+//       }
 //     })
-// })
+//     .catch((err) => {
+//       res
+//         .status(500)
+//         .json({ message: "There was an error connecting to database" });
+//     });
+// });
 
 router.post("/", (req, res) => {
   const postData = req.body;
@@ -56,7 +59,7 @@ router.post("/", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  Posts.remove(req.params.id)
+  Posts.deletePost(req.params.id)
     .then((data) => {
       if (data > 0) {
         res.status(200).json({ message: "This post has been deleted" });
@@ -75,14 +78,14 @@ router.delete("/:id", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const changes = req.body;
-  if (!req.body.title || !req.body.contents) {
+  if (!req.body.title || !req.body.content) {
     return res.status(400).json({
       message:
         "The error is the error that i need to update to be the correct error.",
     });
   }
 
-  Posts.update(req.params.id, changes)
+  Posts.editPost(req.params.id, changes)
     .then((update) => {
       console.log(update, "this is the update");
       if (update === 0) {
