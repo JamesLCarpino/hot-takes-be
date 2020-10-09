@@ -5,7 +5,7 @@ const cors = require("cors");
 //routers
 const userRouter = require("../users/users-router");
 const authRouter = require("../authorized/auth-router");
-//const commentsRouter = require("../functionality/comments/comments-router");
+const commentsRouter = require("../functionality/comments/comments-router");
 const postRouter = require("../functionality/posts/posts-router");
 const server = express();
 
@@ -14,7 +14,7 @@ server.use(express.json());
 server.use(cors());
 
 server.use("/users", userRouter);
-//server.use("/comments", commentsRouter);
+server.use("/comments", commentsRouter);
 server.use("/auth", authRouter);
 server.use("/posts", postRouter);
 

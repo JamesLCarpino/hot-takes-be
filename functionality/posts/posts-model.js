@@ -45,3 +45,5 @@ function deletePost(id) {
 function editPost(id, changes) {
   return db("posts").where({ id }).update(changes);
 }
+
+//comment stuff

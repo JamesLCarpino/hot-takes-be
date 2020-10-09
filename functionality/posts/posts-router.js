@@ -80,8 +80,7 @@ router.put("/:id", (req, res) => {
   const changes = req.body;
   if (!req.body.title || !req.body.content) {
     return res.status(400).json({
-      message:
-        "The error is the error that i need to update to be the correct error.",
+      message: "You are missing a required field of title or content",
     });
   }
 

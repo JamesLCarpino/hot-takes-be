@@ -1,45 +1,48 @@
-// const db = require("../database/dbConfig");
+const db = require("../../database/dbConfig");
 
-// module.exports = {
-//   getStrains,
-//   getStrainsById,
-//   addStrain,
-//   deleteStrain,
-//   getAllComments,
-// };
-// function getAllComments() {
-//   return db("comments");
-// }
+module.exports = {
+  getAllComments,
+  getCommentsById,
+  addComment,
 
-// function getStrains() {
-//   return db("comments")
-//     .join("")
-//     .join()
-//     .join("users", "users.id", "posts.user_id")
-//     .select(
-//       "strains.strain as Strain Name",
-//       "ailments.ailment_name as Recommended For:",
-//       "strains.type",
-//       "strains.description",
-//       "strains.flavor",
-//       "strains.rating"
-//     )
+  deleteComment,
+  editComment,
+};
+function getAllComments() {
+  return db("comments");
+}
 
-//     .orderBy("strains.strain");
-// }
+function getCommentsById(id) {
+  return db("comments")
+    .where("comments.id", id)
 
-// function getStrainsById(id) {
-//   return db("strains").where({ id });
-// }
+    .join("users", "comments.user_id", "users.id")
+    .join("posts", "comments.post_id", "posts.id")
+    .select(
+      "users.username as Username:",
+      "users.admin as Admin Status:",
+      "comments.id as Comment ID:",
 
-// function addStrain(newStrain) {
-//   return db("strains")
-//     .insert(newStrain, "id")
-//     .then((ids) => {
-//       return getStrainsById(ids[0]);
-//     });
-// }
+      "comments.comment_content as Comment:",
+      "comments.created as Comment Created At:",
+      "posts.title as Post Title",
+      "posts.created as Post Created At:",
+      "posts.content as Post:"
+    );
+}
 
-// function deleteStrain(id) {
-//   return db("strains").where("id", id).del();
-// }
+function addComment(newComment) {
+  return db("comments")
+    .insert(newComment, "id")
+    .then((ids) => {
+      return getCommentsById(ids[0]);
+    });
+}
+
+function deleteComment(id) {
+  return db("comments").where("id", id).del();
+}
+
+function editComment(id, changes) {
+  return db("comments").where({ id }).update(changes);
+}
