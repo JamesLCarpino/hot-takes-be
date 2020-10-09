@@ -12,7 +12,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users").select("username", "admin", "user_created");
+  return db("users").select("id", "username", "admin", "user_created");
 }
 
 function add(user) {
@@ -20,7 +20,9 @@ function add(user) {
 }
 
 function findUserId(id) {
-  return db("users").where({ id });
+  return db("users")
+    .where({ id })
+    .select("id", "username", "admin", "user_created");
 }
 
 function findBy(filter) {

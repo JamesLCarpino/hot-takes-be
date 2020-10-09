@@ -12,9 +12,7 @@ router.get("/", (req, res) => {
       if (users) {
         res.status(201).json({ users });
       } else {
-        res
-          .status(200)
-          .json({ message: "Please contact an admin to get user list" });
+        res.status(200).json({ message: "Please login " });
       }
     })
     .catch((err) => {
@@ -43,7 +41,7 @@ router.get("/:id", (req, res) => {
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
-  Users.findBy(id)
+  Users.findUserId(id)
     .then((updates) => {
       if (updates) {
         Users.updateUser(changes, id).then((updatedUser) => {
