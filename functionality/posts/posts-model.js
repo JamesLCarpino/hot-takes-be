@@ -13,7 +13,17 @@ function getAllPosts() {
 }
 
 function getPostsById(id) {
-  return db("posts").where({ id });
+  return db("posts")
+    .where("posts.id", id)
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin"
+    );
 }
 
 function getPostsByUserId(user_id) {
@@ -23,8 +33,8 @@ function getPostsByUserId(user_id) {
 function addPost(newPost) {
   return db("posts")
     .insert(newPost, "id")
-    .then((ids) => {
-      return getPostsById(ids);
+    .then((id) => {
+      getPostsById(id);
     });
 }
 

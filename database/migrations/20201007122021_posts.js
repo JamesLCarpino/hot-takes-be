@@ -5,7 +5,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("posts", (tbl) => {
     tbl.increments();
     tbl.string("title").notNullable();
-    tbl.specificType("content", "text ARRAY");
+    tbl.string("content").notNullable();
     tbl.timestamp("created").defaultTo(knex.fn.now());
 
     //reference the users
@@ -21,5 +21,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExsists("posts");
+  return knex.schema.dropTableIfExists("posts");
 };
