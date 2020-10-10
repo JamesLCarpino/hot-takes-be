@@ -17,6 +17,10 @@ exports.up = function (knex) {
       .inTable("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+
+    //references the comments of the post
+    tbl.integer('comment_id').notNullable().unsigned().
+
   });
 };
 

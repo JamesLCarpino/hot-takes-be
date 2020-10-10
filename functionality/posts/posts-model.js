@@ -7,7 +7,7 @@ module.exports = {
   deletePost,
   editPost,
   getAllPosts,
-  findCommentsById,
+  getAllCommentsByPostId,
 };
 function getAllPosts() {
   return db("posts");
@@ -48,6 +48,7 @@ function editPost(id, changes) {
 }
 
 //comment stuff
-function findCommentsById(id) {
-  return db("comments").where("post_id", id);
+function getAllCommentsByPostId(id) {
+  return db("posts").where({ id });
+  //.join("posts", "comments.post_id", "posts.id");
 }
