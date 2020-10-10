@@ -106,9 +106,10 @@ router.put("/:id", (req, res) => {
 //comment stuff
 
 router.get("/:id/comments", (req, res) => {
-  Posts.findCommentById(req.params.id)
+  Posts.findCommentsById(req.params.id)
     .then(([data]) => {
       if (data) {
+        console.log(data);
         res.status(200).json(data);
       } else {
         res

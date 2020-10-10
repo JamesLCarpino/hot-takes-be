@@ -35,7 +35,7 @@ function addComment(newComment) {
   return db("comments")
     .insert(newComment, "id")
     .then((ids) => {
-      return getCommentsById(ids[0]);
+      return getCommentsById(ids);
     });
 }
 

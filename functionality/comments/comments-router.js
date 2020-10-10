@@ -5,7 +5,7 @@ router.use(restricted);
 
 router.get("/", (req, res) => {
   Comments.getAllComments(req.query)
-    .first()
+
     .then((data) => {
       res.status(200).json(data);
     })
