@@ -19,29 +19,29 @@ exports.up = function (knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
 
-    tbl
-      .integer("upvote_id")
-      .notNullable()
-      .references("id")
-      .inTable("up_vote")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+    // tbl
+    //   .integer("upvote_id")
+    //   .notNullable()
+    //   .references("id")
+    //   .inTable("up_vote")
+    //   .onDelete("CASCADE")
+    //   .onUpdate("CASCADE");
 
-    tbl
-      .integer("downvote_id")
-      .notNullable()
-      .references("id")
-      .inTable("down_vote")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+    // tbl
+    //   .integer("downvote_id")
+    //   .notNullable()
+    //   .references("id")
+    //   .inTable("down_vote")
+    //   .onDelete("CASCADE")
+    //   .onUpdate("CASCADE");
 
-    tbl
-      .integer("flag_id")
-      .notNullable()
-      .references("id")
-      .inTable("flag")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+    // tbl
+    //   .integer("flag_id")
+    //   .notNullable()
+    //   .references("id")
+    //   .inTable("flag")
+    //   .onDelete("CASCADE")
+    //   .onUpdate("CASCADE");
   });
 };
 
