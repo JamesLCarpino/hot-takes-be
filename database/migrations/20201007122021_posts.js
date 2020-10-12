@@ -1,9 +1,7 @@
-const { table } = require("console");
-const { post } = require("superagent");
-
 exports.up = function (knex) {
   return knex.schema.createTable("posts", (tbl) => {
     tbl.increments();
+
     tbl.string("title").notNullable();
     tbl.string("content").notNullable();
     tbl.timestamp("created").defaultTo(knex.fn.now());
@@ -20,9 +18,9 @@ exports.up = function (knex) {
 
     //references the comments of the post
     tbl
-      .integer("comment_id")
-      .notNullable()
+      .integer("commment_id")
       .unsigned()
+      .notNullable()
       .references("id")
       .inTable("comments")
       .onDelete("CASCADE")

@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable("up_vote", (tbl) => {
-      // tbl.increments();
+      //tbl.increments();
       tbl.primary(["user_id", "post_id", "comment_id"]);
       tbl.boolean("up_voted").defaultTo(false);
       tbl.integer("amount").defaultTo(0);
@@ -33,8 +33,8 @@ exports.up = function (knex) {
         .onUpdate("CASCADE");
     })
     .createTable("down_vote", (tbl) => {
-      // tbl.increments();
-      tbl.primary(["user_id", "post_id", "comment_id"]);
+      tbl.increments();
+      // tbl.primary(["user_id", "post_id", "comment_id"]);
       tbl.boolean("down_voted").defaultTo(false);
       tbl.integer("amount").defaultTo(0);
 

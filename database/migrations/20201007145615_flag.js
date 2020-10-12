@@ -1,5 +1,5 @@
 exports.up = function (knex) {
-  return knex.schema.createTable("flagged", (tbl) => {
+  return knex.schema.createTable("flag", (tbl) => {
     tbl.primary(["post_id", "comment_id", "user_id"]);
     tbl.boolean("flagged").defaultTo(false);
 
