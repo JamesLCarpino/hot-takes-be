@@ -49,6 +49,7 @@ function editPost(id, changes) {
 
 //comment stuff
 function getAllCommentsByPostId(id) {
-  return db("posts").where({ id });
-  //.join("posts", "comments.post_id", "posts.id");
+  return db("comments")
+    .where({ id })
+    .join("comments", "comments.post_id", "posts.id");
 }
