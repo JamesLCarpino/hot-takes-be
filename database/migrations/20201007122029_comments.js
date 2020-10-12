@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("comments", (tbl) => {
     tbl.increments();
-    tbl.string("comment_content").notNullable();
+    tbl.string("content").notNullable();
     tbl.timestamp("created").defaultTo(knex.fn.now());
 
     tbl
