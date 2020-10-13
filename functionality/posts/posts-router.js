@@ -4,7 +4,7 @@ const Posts = require("../posts/posts-model");
 router.get("/", (req, res) => {
   Posts.getAllPosts(req.query)
     .then((data) => {
-      res.status(200).json(data);
+      res.status(200).json({ data: data });
     })
     .catch((error) => {
       console.log(error);
@@ -104,25 +104,6 @@ router.put("/:id", (req, res) => {
 });
 
 //comment stuff
-
-router.get("/:id/comments", (req, res) => {
-  Posts.getAllCommentsByPostId(req.params.id)
-    .then(([data]) => {
-      if (data) {
-        console.log(data);
-        res.status(200).json(data);
-      } else {
-        res
-          .status(404)
-          .json({ message: "The post with the specified ID does not exist" });
-      }
-    })
-    .catch((err) => {
-      res
-        .status(500)
-        .json({ message: "There was an error while saving to the database" });
-    });
-});
 
 router.post("/:post_id/comments", (req, res) => {
   const { post_id } = req.params;

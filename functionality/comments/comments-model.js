@@ -7,6 +7,7 @@ module.exports = {
 
   deleteComment,
   editComment,
+  getAllCommentsByPostId,
 };
 function getAllComments() {
   return db("comments");
@@ -23,7 +24,7 @@ function getCommentsById(id) {
       "users.admin as Admin Status:",
       "comments.id as Comment ID:",
 
-      "comments.comment_content as Comment:",
+      "comments.content as Comment:",
       "comments.created as Comment Created At:",
       "posts.title as Post Title",
       "posts.created as Post Created At:",
@@ -45,4 +46,27 @@ function deleteComment(id) {
 
 function editComment(id, changes) {
   return db("comments").where({ id }).update(changes);
+}
+
+// function getAllCommentsByPostId(id) {
+//   return db("comments")
+//     .where({ post_id: id })
+//     .join("posts", "comments.post_id", "posts.id")
+//     .select(
+//       "comments.id",
+//       "comments.comment",
+//       "comments.created",
+//       "post.id as post_id"
+//     );
+// }
+
+function getAllCommentsByPostId(id) {
+  return db("comments")
+    .where({ post_id: id })
+    .join("posts", "comments.post_id", "posts.id")
+    .select(
+      "comments.id",
+      "comments.content as Comment:",
+      "posts.id as Post ID:"
+    );
 }

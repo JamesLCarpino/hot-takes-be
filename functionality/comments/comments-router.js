@@ -32,6 +32,27 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.get("/post/:id", (req, res) => {
+  let params = req.params.id;
+
+  Comments.getAllCommentsByPostId(params)
+    .then((data) => {
+      if (data) {
+        console.log(data);
+        res.status(200).json(data);
+      } else {
+        res
+          .status(404)
+          .json({ message: "The post with the specified ID does not exist" });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: err.message,
+      });
+    });
+});
+
 router.post("/", (req, res) => {
   const commentData = req.body;
   Comments.addComment(commentData)
@@ -45,7 +66,7 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   const changes = req.body;
-  if (!req.comment_content) {
+  if (!changes.content) {
     return res.status(400).json({
       message: "You are missing a required field",
     });
