@@ -48,25 +48,16 @@ function editComment(id, changes) {
   return db("comments").where({ id }).update(changes);
 }
 
-// function getAllCommentsByPostId(id) {
-//   return db("comments")
-//     .where({ post_id: id })
-//     .join("posts", "comments.post_id", "posts.id")
-//     .select(
-//       "comments.id",
-//       "comments.comment",
-//       "comments.created",
-//       "post.id as post_id"
-//     );
-// }
-
 function getAllCommentsByPostId(id) {
   return db("comments")
     .where({ post_id: id })
     .join("posts", "comments.post_id", "posts.id")
+    .join("users", "comments.user_id", "users.id")
     .select(
       "comments.id",
       "comments.content as Comment:",
-      "posts.id as Post ID:"
+      "posts.id as Post ID:",
+      "posts.content as Post:",
+      "users.username as Author:"
     );
 }

@@ -30,23 +30,6 @@ router.get("/:id", (req, res) => {
     });
 });
 
-//keeping this here, currently this functionality exists in the user route
-// router.get("/userposts/:user_id", (req, res) => {
-//   Posts.getPostsByUserId(req.params.id)
-//     .then(([data]) => {
-//       if (data) {
-//         res.status(200).json(data);
-//       } else {
-//         res.status(404).json({ message: "Post by this user ID do not exist" });
-//       }
-//     })
-//     .catch((err) => {
-//       res
-//         .status(500)
-//         .json({ message: "There was an error connecting to database" });
-//     });
-// });
-
 router.post("/", (req, res) => {
   const postData = req.body;
   Posts.addPost(postData)
@@ -103,32 +86,6 @@ router.put("/:id", (req, res) => {
     });
 });
 
-//comment stuff
-
-router.post("/:post_id/comments", (req, res) => {
-  const { post_id } = req.params;
-  const { text } = req.body;
-  if (text === "" || typeof text != "string") {
-    return res
-      .status(400)
-      .json({ message: "Please provide text for the comment." });
-  }
-
-  Posts.insertComment({ post_id, text })
-    .then(({ id: comment_id }) => {
-      Posts.findCommentById(comment_id).then(([comment]) => {
-        if (comment) {
-          res.status(200).json(comment);
-        } else {
-          res.status(404).json({ message: "This does not exist" });
-        }
-      });
-    })
-    .catch((err) => {
-      res
-        .status(500)
-        .json({ message: "There was an error while saving to the database" });
-    });
-});
+router.post("/:id/upvote");
 
 module.exports = router;

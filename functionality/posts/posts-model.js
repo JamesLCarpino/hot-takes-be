@@ -7,6 +7,7 @@ module.exports = {
   deletePost,
   editPost,
   getAllPosts,
+  getAllPostsByUser,
 };
 function getAllPosts() {
   return db("posts");
@@ -44,4 +45,11 @@ function deletePost(id) {
 
 function editPost(id, changes) {
   return db("posts").where({ id }).update(changes);
+}
+
+function getAllPostsByUser(id) {
+  return db("posts")
+    .where("posts.id", id)
+    .join("users", "posts.user_id", "users.id")
+    .select("users.username as User:", "posts.id as Post ID:");
 }
