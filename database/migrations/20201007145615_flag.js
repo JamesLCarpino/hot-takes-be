@@ -33,5 +33,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists("flagged");
+  return knex.schema.dropTable("flag");
 };

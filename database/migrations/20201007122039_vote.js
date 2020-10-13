@@ -27,7 +27,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schema
-    .dropTableIfExists("up_vote")
-    .dropTableIfExists("down_vote");
+  return knex.schema.dropTable("vote");
 };
