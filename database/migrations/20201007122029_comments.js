@@ -2,6 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("comments", (tbl) => {
     tbl.increments();
     tbl.string("content").notNullable();
+    tbl.boolean("flagged").defaultTo(false);
     tbl.timestamp("created").defaultTo(knex.fn.now());
 
     tbl

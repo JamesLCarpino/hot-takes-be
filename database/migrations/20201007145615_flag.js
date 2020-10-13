@@ -2,6 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable("flag", (tbl) => {
     tbl.primary(["post_id", "comment_id", "user_id"]);
     tbl.boolean("flagged").defaultTo(false);
+    tbl.string("reason");
 
     tbl
       .integer("post_id")
