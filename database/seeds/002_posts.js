@@ -10,6 +10,7 @@ exports.seed = function (knex) {
           title: "New Post user 1",
           content: "Post Content 1",
           user_id: 1,
+          flagged: true,
         },
         {
           id: 2,
@@ -40,6 +41,7 @@ exports.seed = function (knex) {
           title: "New Post user 4 # 4",
           content: "Post Content",
           user_id: 4,
+          flagged: true,
         },
       ]);
     });

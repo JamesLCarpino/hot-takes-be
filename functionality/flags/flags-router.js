@@ -6,7 +6,7 @@ const restricted = require("../../authorized/restricted-model");
 router.get("/", (req, res) => {
   Flags.getAllFlaggedContent(req.query)
     .then((flags) => {
-      console.log(flags.flagged);
+      //console.log(flags.flagged);
       if (flags) {
         res.status(200).json({ flags });
       }

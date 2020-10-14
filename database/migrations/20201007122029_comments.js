@@ -1,5 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable("comments", (tbl) => {
+    // tbl.increments();
     tbl.increments();
     tbl.string("content").notNullable();
     tbl.boolean("flagged").defaultTo(false);
@@ -7,6 +8,8 @@ exports.up = function (knex) {
 
     tbl
       .integer("post_id")
+      .unsigned()
+
       .notNullable()
       .references("id")
       .inTable("posts")
@@ -14,6 +17,8 @@ exports.up = function (knex) {
       .onUpdate("CASCADE");
     tbl
       .integer("user_id")
+      .unsigned()
+
       .notNullable()
       .references("id")
       .inTable("users")
