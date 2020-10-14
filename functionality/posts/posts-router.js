@@ -86,6 +86,8 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.post("/:id/upvote");
+// router.post("/:id/upvote", (req, res) => {
+
+// });
 
 module.exports = router;

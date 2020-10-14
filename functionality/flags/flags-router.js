@@ -4,11 +4,25 @@ const restricted = require("../../authorized/restricted-model");
 
 //return flagged posts
 router.get("/", (req, res) => {
-  Flags.getAllFlaggedContent(req.query)
+  Flags.checkAllContent(req.query)
     .then((flags) => {
-      //console.log(flags.flagged);
+      console.log(flags);
       if (flags) {
-        res.status(200).json({ flags });
+        res.status(200).json({ flagged_content: flags });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+});
+
+router.get("/comments", (req, res) => {
+  Flags.getAllFlaggedComments(req.query)
+    .then((comments) => {
+      if (comments) {
+        res.status(200).json({ flagged_comments: comments });
+      } else {
+        res.status(404).json({ message: "No comments have been flagged" });
       }
     })
     .catch((err) => {
