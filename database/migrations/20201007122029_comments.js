@@ -4,6 +4,7 @@ exports.up = function (knex) {
     tbl.increments();
     tbl.string("content").notNullable();
     tbl.boolean("flagged").defaultTo(false);
+    tbl.boolean("votes").defaultTo(0);
     tbl.timestamp("created").defaultTo(knex.fn.now());
 
     tbl

@@ -3,7 +3,13 @@ const db = require("../../database/dbConfig");
 module.exports = {
   getTopVotedPost,
   getLowestVotedPost,
-  get,
+  orderPostsVotesByHighest,
+  orderPostVotesByLowest,
+
+  getTopVotedComment,
+  getLowestVotedComment,
+  orderCommentVotesByHighest,
+  orderCommentsVotesByLowest,
 };
 
 function getTopVotedPost() {
