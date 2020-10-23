@@ -5,7 +5,6 @@ module.exports = {
   checkAllContent,
   getAllFlaggedPosts,
   getAllFlaggedUsers,
-  addFlag,
 };
 
 function checkAllContent() {
@@ -63,8 +62,4 @@ function getAllFlaggedUsers() {
     .join("users", "comments.user_id", "users.id")
     .where("users.flagged", "=", "true")
     .select("users.username as Username:", "users.flagged as User is Flagged:");
-}
-
-function addFlag() {
-  return db("flags");
 }
