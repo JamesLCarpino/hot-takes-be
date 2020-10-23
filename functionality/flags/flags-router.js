@@ -62,4 +62,8 @@ router.get("/posts", (req, res) => {
     });
 });
 
+router.post("/comments", (req, res) => {
+  Flags.addFlag(req.body);
+});
+
 module.exports = router;
