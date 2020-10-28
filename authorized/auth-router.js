@@ -41,6 +41,7 @@ router.post("/login", (req, res) => {
         res.status(201).json({
           message: "Welcome, have a seat your token will be with you soon",
           token,
+          id: user.id,
         });
       } else {
         //console.log(user)
