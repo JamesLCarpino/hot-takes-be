@@ -8,6 +8,7 @@ module.exports = {
   editPost,
   getAllPosts,
   getAllPostsByUser,
+  getTopPosts,
 };
 function getAllPosts() {
   return db("posts");
@@ -52,4 +53,8 @@ function getAllPostsByUser(id) {
     .where("posts.id", id)
     .join("users", "posts.user_id", "users.id")
     .select("users.username as User:", "posts.id as Post ID:");
+}
+
+function getTopPosts() {
+  return db("posts").orderBy("votes", "desc");
 }
