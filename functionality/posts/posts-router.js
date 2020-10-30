@@ -4,7 +4,7 @@ const Posts = require("../posts/posts-model");
 router.get("/", (req, res) => {
   Posts.getAllPosts(req.query)
     .then((data) => {
-      res.status(200).json({ data: data });
+      res.status(200).json(data);
     })
     .catch((error) => {
       console.log(error);
