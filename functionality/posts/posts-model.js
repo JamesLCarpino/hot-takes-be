@@ -9,6 +9,7 @@ module.exports = {
   getAllPosts,
   getAllPostsByUser,
   getTopPosts,
+  getNewestPosts,
 };
 function getAllPosts() {
   return db("posts");
@@ -57,4 +58,8 @@ function getAllPostsByUser(id) {
 
 function getTopPosts() {
   return db("posts").orderBy("votes", "desc");
+}
+
+function getNewestPosts() {
+  return db("posts").orderBy("created", "desc");
 }

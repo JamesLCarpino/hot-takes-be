@@ -23,6 +23,16 @@ router.get("/top", (req, res) => {
     });
 });
 
+router.get("/new", (req, res) => {
+  Posts.getNewestPosts(req.query)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
 router.get("/:id", (req, res) => {
   Posts.getPostsById(req.params.id)
     .then(([data]) => {
