@@ -84,6 +84,7 @@ router.get("/:id/comments", (req, res) => {
     });
 });
 
+//get posts by users id
 router.get("/:id/posts", (req, res) => {
   Users.getAllUsersPosts(req.params.id)
     .then((user_posts) => {
