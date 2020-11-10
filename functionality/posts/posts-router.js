@@ -55,14 +55,14 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const postData = req.body;
   const { id } = req.jwt;
-
-  Posts.addPost({ ...postData, user_id: id })
-    .then((post) => {
-      res.status(201).json({ postData });
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+  console.log(postData);
+  // Posts.addPost({ ...postData, user_id: id })
+  //   .then((post) => {
+  //     res.status(201).json({ postData });
+  //   })
+  //   .catch((err) => {
+  //     res.status(500).json({ message: err.message });
+  //   });
 });
 
 router.delete("/:id", (req, res) => {
