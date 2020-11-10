@@ -86,9 +86,9 @@ router.get("/:id/comments", (req, res) => {
 
 //get posts by users id
 router.get("/:id/posts", (req, res) => {
-  Users.getAllUsersPosts(req.params.id);
-  console
-    .log(req.params.id)
+  console.log(req.params.id);
+  Users.getAllUsersPosts(req.params.id)
+
     .then((user_posts) => {
       if (user_posts) {
         res.status(200).json(user_posts);
