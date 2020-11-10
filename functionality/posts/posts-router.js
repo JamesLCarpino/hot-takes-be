@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const Posts = require("../posts/posts-model");
 
+const restricted = require("../../authorized/restricted-model");
+router.use(restricted);
+
 router.get("/", (req, res) => {
   Posts.getAllPosts(req.query)
     .then((data) => {
@@ -51,9 +54,11 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const postData = req.body;
-  Posts.addPost(postData)
+  const { id } = req.jwt;
+
+  Posts.addPost({ ...postData, user_id: id })
     .then((post) => {
-      res.status(201).json({ post: postData });
+      res.status(201).json({ postData });
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });
