@@ -13,11 +13,7 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use(
-  cors({
-    origin: "*",
-  })
-);
+server.use(cors());
 
 server.use("/users", userRouter);
 server.use("/comments", commentsRouter);
