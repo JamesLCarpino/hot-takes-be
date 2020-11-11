@@ -42,7 +42,7 @@ function addPost(newPost) {
 }
 
 function deletePost(id) {
-  return db("posts").where("id", id).del();
+  return db("posts").where("id", id).returning("id").del();
 }
 
 function editPost(id, changes) {

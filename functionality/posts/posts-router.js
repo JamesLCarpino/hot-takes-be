@@ -66,10 +66,12 @@ router.post("/", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  Posts.deletePost(req.params.id)
+  const id = req.params.id;
+  Posts.deletePost(id)
     .then((data) => {
+      console.log("data", data);
       if (data > 0) {
-        res.status(200).json({ message: "This post has been deleted" });
+        res.status(200).json({ data });
       } else {
         res
           .status(404)
