@@ -70,8 +70,8 @@ router.delete("/:id", (req, res) => {
   Posts.deletePost(id)
     .then((data) => {
       console.log("data", data);
-      if (data > 0) {
-        res.status(200).json({ data });
+      if (data) {
+        res.status(200).json({ data: id });
       } else {
         res
           .status(404)
@@ -79,9 +79,7 @@ router.delete("/:id", (req, res) => {
       }
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({ message: "There was an error while saving to the database" });
+      res.status(500).json({ message: err.message });
     });
 });
 
