@@ -71,7 +71,7 @@ router.delete("/:id", (req, res) => {
     .then((data) => {
       console.log("data", data);
       if (data) {
-        res.status(200).json({ data: id });
+        res.status(200).json({ data: JSON.parse(id) });
       } else {
         res
           .status(404)
