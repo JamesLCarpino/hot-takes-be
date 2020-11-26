@@ -10,6 +10,7 @@ module.exports = {
   getAllPostsByUser,
   getTopPosts,
   getNewestPosts,
+  upvotePost,
 };
 function getAllPosts() {
   return db("posts");
@@ -47,6 +48,11 @@ function deletePost(id) {
 
 function editPost(id, changes) {
   return db("posts").where({ id }).update(changes);
+}
+
+function upvotePost(id, upvote) {
+  console.log(upvote);
+  return db("posts").where({ id }).update(upvote);
 }
 
 function getAllPostsByUser(id) {

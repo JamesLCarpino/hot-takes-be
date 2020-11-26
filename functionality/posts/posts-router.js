@@ -70,7 +70,7 @@ router.delete("/:id", (req, res) => {
   Posts.deletePost(id)
     .then((data) => {
       console.log("data", data);
-      if (data) {
+      if (data > 0) {
         res.status(200).json({ id: JSON.parse(id) });
       } else {
         res
@@ -110,8 +110,28 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// router.post("/:id/upvote", (req, res) => {
+router.put("/:id/upvote", (req, res) => {
+  const votes = req.body.votes;
+  //const { votes } = req.body;
+  console.log("from router", votes);
 
-// });
+  Posts.upvotePost(req.params.id, votes)
+    .then((update) => {
+      console.log(update, "this is the update");
+      if (update === 0) {
+        res
+          .status(404)
+          .json({ message: "The post with the specified ID does not exist " });
+      } else {
+        res.status(200).json({ votes });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: error.message,
+      });
+    });
+});
 
 module.exports = router;
