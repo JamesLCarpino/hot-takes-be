@@ -68,13 +68,40 @@ function getAllPostsByUser(id) {
   return db("posts")
     .where("posts.id", id)
     .join("users", "posts.user_id", "users.id")
-    .select("users.username as User:", "posts.id as Post ID:");
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin"
+    );
 }
 
 function getTopPosts() {
-  return db("posts").orderBy("votes", "desc");
+  return db("posts")
+    .orderBy("votes", "desc")
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin"
+    );
 }
 
 function getNewestPosts() {
-  return db("posts").orderBy("created", "desc");
+  return db("posts")
+    .orderBy("created", "desc")
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin"
+    );
 }
