@@ -61,9 +61,16 @@ function editPost(id, changes) {
   return db("posts").where({ id }).update(changes);
 }
 
-function upvotePost(id, upvote) {
-  console.log(upvote);
-  return db("posts").where({ id }).update(upvote);
+function upvotePost(id, user_name, user_id) {
+  // console.log("from model", id);
+  // return db("posts").where({ id }).insert(user_id).returning("posts");
+  console.log();
+  return db("posts")
+    .where("id", id)
+
+    .update({
+      votes: db.raw("array_append(votes, ?)", [{ user_id, user_name }]),
+    });
 }
 
 function getAllPostsByUser(id) {

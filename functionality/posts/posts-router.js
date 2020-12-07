@@ -111,11 +111,9 @@ router.put("/:id", (req, res) => {
 });
 
 router.put("/:id/upvote", (req, res) => {
-  const votes = req.body.votes;
-  //const { votes } = req.body;
-  console.log("from router", votes);
-
-  Posts.upvotePost(req.params.id, votes)
+  const { username, id } = req.jwt;
+  let votes = req.body.votes;
+  Posts.upvotePost(req.params.id, username, id)
     .then((update) => {
       console.log(update, "this is the update");
       if (update === 0) {
@@ -123,7 +121,11 @@ router.put("/:id/upvote", (req, res) => {
           .status(404)
           .json({ message: "The post with the specified ID does not exist " });
       } else {
-        res.status(200).json({ votes });
+        if (votes.includes(username)) {
+          res.status(401).json("You already upvoted this you wangdoodle.");
+        } else {
+          res.status(200).json(update);
+        }
       }
     })
     .catch((error) => {
