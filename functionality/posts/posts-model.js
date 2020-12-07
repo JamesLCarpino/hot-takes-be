@@ -21,7 +21,8 @@ function getAllPosts() {
       "posts.content",
       "posts.created",
       "users.username",
-      "users.admin"
+      "users.admin",
+      "posts.votes"
     );
 }
 
@@ -35,7 +36,8 @@ function getPostsById(id) {
       "posts.content",
       "posts.created",
       "users.username",
-      "users.admin"
+      "users.admin",
+      "posts.votes"
     );
 }
 
@@ -104,6 +106,7 @@ function getNewestPosts() {
       "posts.content",
       "posts.created",
       "users.username",
-      "users.admin"
+      "users.admin",
+      "posts.votes"
     );
 }
