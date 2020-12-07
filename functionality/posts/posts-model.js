@@ -74,7 +74,8 @@ function getAllPostsByUser(id) {
       "posts.content",
       "posts.created",
       "users.username",
-      "users.admin"
+      "users.admin",
+      "posts.votes"
     );
 }
 
@@ -84,6 +85,7 @@ function getTopPosts() {
     .join("users", "posts.user_id", "users.id")
     .select(
       "posts.id",
+      "posts.votes",
       "posts.title",
       "posts.content",
       "posts.created",
