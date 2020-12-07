@@ -13,7 +13,16 @@ module.exports = {
   upvotePost,
 };
 function getAllPosts() {
-  return db("posts");
+  return db("posts")
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin"
+    );
 }
 
 function getPostsById(id) {
