@@ -116,7 +116,29 @@ router.put("/:id/upvote", (req, res) => {
   Posts.upvotePost(req.params.id, username, id)
     .then((upvote) => {
       console.log(upvote, "this is the update");
-      if (upvote.length === 0) {
+      if (upvote === 0 || upvote === null) {
+        res
+          .status(404)
+          .json({ message: "The post with the specified ID does not exist " });
+      } else {
+        res.status(200).json(upvote);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({
+        message: error.message,
+      });
+    });
+});
+
+router.put("/:id/downvote", (req, res) => {
+  const { username, id } = req.jwt;
+
+  Posts.downvotePost(req.params.id, username, id)
+    .then((upvote) => {
+      console.log(upvote, "this is the update");
+      if (upvote === 0 || upvote === null) {
         res
           .status(404)
           .json({ message: "The post with the specified ID does not exist " });
