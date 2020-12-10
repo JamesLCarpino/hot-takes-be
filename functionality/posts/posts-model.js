@@ -1,3 +1,4 @@
+const { post } = require("../../api/server");
 const db = require("../../database/dbConfig");
 
 module.exports = {
@@ -61,18 +62,6 @@ function editPost(id, changes) {
   return db("posts").where({ id }).update(changes);
 }
 
-function upvotePost(id, user_name, user_id) {
-  // console.log("from model", id);
-  // return db("posts").where({ id }).insert(user_id).returning("posts");
-  console.log();
-  return db("posts")
-    .where("id", id)
-
-    .update({
-      votes: db.raw("array_append(votes, ?)", [{ user_id, user_name }]),
-    });
-}
-
 function getAllPostsByUser(id) {
   return db("posts")
     .where("posts.id", id)
@@ -87,6 +76,57 @@ function getAllPostsByUser(id) {
       "posts.votes"
     );
 }
+
+async function upvotePost(id, user_name) {
+  // console.log("from model", id);
+  // return db("posts").where({ id }).insert(user_id).returning("posts");
+  const post_find = await getPostsById(id);
+  console.log(post_find, "promise of the post");
+
+  if (post_find[0].votes.includes(user_name)) {
+    return { err: "you already upvoted this you stupid fuck" };
+  } else {
+    return (
+      db("posts")
+        .where("id", id)
+        //.returning("*")
+        .update({
+          votes: db.raw("array_append(votes, ?)", [user_name]),
+        })
+    );
+  }
+}
+
+// function upvotePost(id, user_name, user_id) {
+//   // console.log("from model", id);
+//   // return db("posts").where({ id }).insert(user_id).returning("posts");
+
+//   const post_find = getPostsById(id).then((upvote) => {
+//     console.log(upvote, "should be post data to be upvoted");
+//     console.log(user_name, "name from modle");
+
+//     return upvote.votes;
+//   });
+//   console.log(post_find, "promise of the post");
+//   return (
+//     db("posts")
+//       .where("id", id)
+//       // .returning("*")
+//       .update({
+//         votes: db.raw("array_append(votes, ?)", [user_name]),
+//       })
+//   );
+//   //
+//   //   return (
+//   //     db("posts")
+//   //       .where("id", id)
+//   //       // .returning("*")
+//   //       .update({
+//   //         votes: db.raw("array_append(votes, ?)", [user_name]),
+//   //       })
+//   //   );
+//   /
+// }
 
 function getTopPosts() {
   return db("posts")
