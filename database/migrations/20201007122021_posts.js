@@ -5,7 +5,7 @@ exports.up = function (knex) {
     tbl.string("title").notNullable();
     tbl.string("content").notNullable();
     tbl.boolean("flagged").defaultTo(false);
-    tbl.specificType("votes", "text ARRAY");
+    tbl.specificType("votes", "TEXT[]").defaultTo("{}");
     tbl.timestamp("created").defaultTo(knex.fn.now());
 
     //reference the users
