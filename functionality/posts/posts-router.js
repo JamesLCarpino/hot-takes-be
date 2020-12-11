@@ -55,10 +55,12 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const postData = req.body;
   const { id } = req.jwt;
-  console.log(postData);
+  console.log("POST DATA FROM ROUTE", postData);
+  console.log("ID FROM FOUTE", id);
   Posts.addPost({ ...postData, user_id: id })
-    .then((post) => {
-      res.status(201).json({ postData });
+    .then(([post]) => {
+      console.log(post);
+      res.status(201).json(post);
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });
@@ -120,6 +122,10 @@ router.put("/:id/upvote", (req, res) => {
         res
           .status(404)
           .json({ message: "The post with the specified ID does not exist " });
+      } else if (upvote === 2) {
+        res
+          .status(401)
+          .json({ message: "you already upvoted this you stupid fuck" });
       } else {
         res.status(200).json(upvote);
       }
@@ -142,6 +148,10 @@ router.put("/:id/downvote", (req, res) => {
         res
           .status(404)
           .json({ message: "The post with the specified ID does not exist " });
+      } else if (downvote === 2) {
+        res
+          .status(401)
+          .json({ message: "you already upvoted this you stupid fuck" });
       } else {
         res.status(200).json(upvote);
       }

@@ -29,30 +29,32 @@ function getAllPosts() {
 }
 
 function getPostsById(id) {
-  return db("posts")
-    .where("posts.id", id)
-    .join("users", "posts.user_id", "users.id")
-    .select(
-      "posts.id",
-      "posts.title",
-      "posts.content",
-      "posts.created",
-      "users.username",
-      "users.admin",
-      "posts.votes"
-    );
+  return db("posts").where("posts.id", id);
+  // .join("users", "posts.user_id", "users.id")
+  // .select(
+  //   "posts.id",
+  //   "posts.title",
+  //   "posts.content",
+  //   "posts.created",
+  //   "users.username",
+  //   "users.admin",
+  //   "posts.votes"
+  // );
 }
 
 function getPostsByUserId(user_id) {
   return db("posts").where({ user_id: id });
 }
 
-function addPost(newPost) {
-  return db("posts")
-    .insert(newPost, "id")
-    .then((id) => {
-      getPostsById(id);
-    });
+async function addPost(newPost) {
+  // console.log("GETTING ID", get_id);
+  // return db("posts").insert(newPost).returning("*");
+  const [newPostId] = await db("posts").returning("id").insert(newPost);
+  return getPostsById(newPostId);
+
+  // .then((id) => {
+  //   getPostsById(id);
+  // });
 }
 
 function deletePost(id) {
@@ -85,7 +87,7 @@ async function upvotePost(id, user_name) {
   console.log(post_find, "promise of the post");
 
   if (post_find[0].votes.includes(user_name)) {
-    return { err: "you already upvoted this you stupid fuck" };
+    return 2;
   } else {
     return db("posts")
       .where("id", id)
@@ -110,7 +112,7 @@ async function downvotePost(id, user_name) {
         votes: db.raw("array_remove(votes, ?)", [user_name]),
       });
   } else {
-    return { err: "you already downvoted this you stupid fuck" };
+    return 2;
   }
 }
 
