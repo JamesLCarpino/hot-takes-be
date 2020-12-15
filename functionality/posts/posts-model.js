@@ -47,14 +47,15 @@ function getPostsByUserId(user_id) {
 }
 
 async function addPost(newPost) {
-  // console.log("GETTING ID", get_id);
-  // return db("posts").insert(newPost).returning("*");
-  const [newPostId] = await db("posts").returning("id").insert(newPost);
-  return getPostsById(newPostId);
-
-  // .then((id) => {
-  //   getPostsById(id);
-  // });
+  //console.log("GETTING ID", get_id);
+  return db("posts")
+    .returning("id")
+    .insert(newPost)
+    .then((id) => {
+      getPostsById(id);
+    });
+  // const [newPostId] = await db("posts").returning("id").insert(newPost);
+  // return getPostsById(newPostId);
 }
 
 function deletePost(id) {
