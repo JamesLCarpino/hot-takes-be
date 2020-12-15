@@ -54,8 +54,6 @@ async function addPost(newPost) {
     .then((id) => {
       getPostsById(id);
     });
-  // const [newPostId] = await db("posts").returning("id").insert(newPost);
-  // return getPostsById(newPostId);
 }
 
 function deletePost(id) {
