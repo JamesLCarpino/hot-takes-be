@@ -46,9 +46,7 @@ router.get("/:id", (req, res) => {
       }
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({ message: "There was an error while saving to the database" });
+      res.status(500).json({ message: err.message });
     });
 });
 

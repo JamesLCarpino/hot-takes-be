@@ -4,13 +4,12 @@ exports.up = function (knex) {
     tbl.increments();
     tbl.string("content").notNullable();
     tbl.boolean("flagged").defaultTo(false);
-    tbl.boolean("votes").defaultTo(0);
+    tbl.specificType("votes", "TEXT[]").defaultTo("{}");
     tbl.timestamp("created").defaultTo(knex.fn.now());
 
     tbl
       .integer("post_id")
       .unsigned()
-
       .notNullable()
       .references("id")
       .inTable("posts")
@@ -19,36 +18,11 @@ exports.up = function (knex) {
     tbl
       .integer("user_id")
       .unsigned()
-
       .notNullable()
       .references("id")
       .inTable("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-
-    // tbl
-    //   .integer("upvote_id")
-    //   .notNullable()
-    //   .references("id")
-    //   .inTable("up_vote")
-    //   .onDelete("CASCADE")
-    //   .onUpdate("CASCADE");
-
-    // tbl
-    //   .integer("downvote_id")
-    //   .notNullable()
-    //   .references("id")
-    //   .inTable("down_vote")
-    //   .onDelete("CASCADE")
-    //   .onUpdate("CASCADE");
-
-    // tbl
-    //   .integer("flag_id")
-    //   .notNullable()
-    //   .references("id")
-    //   .inTable("flag")
-    //   .onDelete("CASCADE")
-    //   .onUpdate("CASCADE");
   });
 };
 

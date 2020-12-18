@@ -18,23 +18,13 @@ function getCommentsById(id) {
     .where("comments.id", id)
 
     .join("users", "comments.user_id", "users.id")
-    .join("posts", "comments.post_id", "posts.id")
-    .select(
-      "users.username as Username:",
-      "users.admin as Admin Status:",
-      "comments.id as Comment ID:",
-
-      "comments.content as Comment:",
-      "comments.created as Comment Created At:",
-      "posts.title as Post Title",
-      "posts.created as Post Created At:",
-      "posts.content as Post:"
-    );
+    .join("posts", "comments.post_id", "posts.id");
 }
 
 function addComment(newComment) {
   return db("comments")
-    .insert(newComment, "id")
+    .returning("id")
+    .insert(newComment)
     .then((ids) => {
       return getCommentsById(ids);
     });
@@ -55,9 +45,10 @@ function getAllCommentsByPostId(id) {
     .join("users", "comments.user_id", "users.id")
     .select(
       "comments.id",
-      "comments.content as Comment:",
-      "posts.id as Post ID:",
-      "posts.content as Post:",
-      "users.username as Author:"
-    );
+      "comments.content as Comment",
+      "posts.id as Post ID",
+      "posts.content as Post",
+      "users.username as Author"
+    )
+    .orderBy("comments.created");
 }

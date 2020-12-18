@@ -53,9 +53,17 @@ router.get("/post/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+//should post straight to the post id
+router.post("/:id", (req, res) => {
   const commentData = req.body;
-  Comments.addComment(commentData)
+  const { id } = req.jwt;
+  let post_id = req.params.id;
+
+  console.log("user_id", id);
+  console.log("comment data", commentData);
+  console.log("post_id", post_id);
+
+  Comments.addComment({ ...commentData, user_id: id, post_id: post_id })
     .then((comment) => {
       res.status(201).json({ comment });
     })
