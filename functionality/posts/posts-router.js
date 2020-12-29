@@ -38,7 +38,7 @@ router.get("/new", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Posts.getPostsById(req.params.id)
-    .then(([data]) => {
+    .then((data) => {
       if (data) {
         res.status(200).json(data);
       } else {

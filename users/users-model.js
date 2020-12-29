@@ -43,5 +43,16 @@ function getAllUsersComments(user_id) {
 }
 
 function getAllUsersPosts(user_id) {
-  return db("posts").where({ user_id: user_id });
+  return db("posts")
+    .where({ user_id: user_id })
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin",
+      "posts.votes"
+    );
 }

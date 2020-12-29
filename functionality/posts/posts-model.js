@@ -29,21 +29,33 @@ function getAllPosts() {
 }
 
 function getPostsById(id) {
-  return db("posts").where("posts.id", id);
-  // .join("users", "posts.user_id", "users.id")
-  // .select(
-  //   "posts.id",
-  //   "posts.title",
-  //   "posts.content",
-  //   "posts.created",
-  //   "users.username",
-  //   "users.admin",
-  //   "posts.votes"
-  // );
+  return db("posts")
+    .where("posts.id", id)
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin",
+      "posts.votes"
+    );
 }
 
 function getPostsByUserId(user_id) {
-  return db("posts").where({ user_id: id });
+  return db("posts")
+    .where({ user_id: id })
+    .join("users", "posts.user_id", "users.id")
+    .select(
+      "posts.id",
+      "posts.title",
+      "posts.content",
+      "posts.created",
+      "users.username",
+      "users.admin",
+      "posts.votes"
+    );
 }
 
 async function addPost(newPost) {
